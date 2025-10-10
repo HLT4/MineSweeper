@@ -20,10 +20,17 @@ public class Solufx extends Pane {
     }
     
     
+    public void handleRClick() {
+        
+        // TODO temp
+        this.setVari("blue");
+        
+    }
+    
     /**
      * Käsittelijä klikkauksille
      */
-    public void handleClick() {
+    public void handleLClick() {
         
         if (pelisolu.getAvattu()) {
             return;

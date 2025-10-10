@@ -1,6 +1,7 @@
 package MiinaharavaFXML;
 
 import MiinaharavaFXML.Minesweep.Solu;
+import javafx.scene.input.MouseButton;
 
 /**
  * Container-luokka solufx:ille
@@ -38,7 +39,13 @@ public class Solut {
                 s.setPrefSize(40, 40); s.setMaxSize(40, 40);
                 s.setMinSize(40, 40);
                 s.setOnMouseClicked( (event) -> {
-                    s.handleClick();
+                    if (event.getButton().equals(MouseButton.SECONDARY)) {
+                        s.handleRClick();
+                    }
+                    else {
+                        s.handleLClick();
+                    }
+                    
                  // TODO näyttää ymp. pommien määrän
                 });
                 
