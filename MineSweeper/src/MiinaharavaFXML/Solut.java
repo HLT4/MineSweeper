@@ -80,10 +80,6 @@ public class Solut {
             this.etsiNollat(klikattu, true);
             for (Solufx nolla : this.nollalista) this.avaaNaapurit(nolla);
         }
-        
-        // TODO jos 0 => avaa naapureita
-        // TODO jos pommi => häviä
-        // TODO jos ei pommi => avaa
     }
     
     
@@ -91,8 +87,12 @@ public class Solut {
      * Häviö
      */
     public void havio() {
-        // TODO
-        return;
+        for (int i = 0; i < this.y; i++) {
+            for (int j = 0; j < this.x; j++) {
+                Solufx pommi = taulukko[i][j];
+                if (pommi.onPommi()) pommi.avaa(); 
+            }
+        }
     }
     
     

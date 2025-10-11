@@ -58,14 +58,16 @@ public class Minesweep {
     /**
      * @param Yaks Y-pituus
      * @param Xaks X-pituus
+     * @param pommimaara Pommien määrä, -1, jos autom. helppo versio
      */
-    public Minesweep(int Yaks, int Xaks) {
+    public Minesweep(int Yaks, int Xaks, int pommimaara) {
         this.Yaks = Yaks;
         this.Xaks = Xaks;
         this.taulukko = new Solu[Yaks][Xaks];
         
         // TODO vaikeustasot sun muut
-        this.pommimaara = (Xaks * Yaks) / 6;  
+        this.pommimaara = pommimaara;
+        if (pommimaara == -1) this.pommimaara = (Xaks * Yaks) / 6;
         
         this.alustaPeli();
     }
@@ -75,7 +77,7 @@ public class Minesweep {
      * defaultti constructori
      */
     public Minesweep() {
-        this(9, 9);
+        this(9, 9, -1);
     }
 
     
@@ -130,8 +132,8 @@ public class Minesweep {
         }
         
         for (int i = 0; i < this.pommimaara; i++) {
-            int y = rand.nextInt(9);
-            int x = rand.nextInt(9);
+            int y = rand.nextInt(this.Yaks);
+            int x = rand.nextInt(this.Xaks);
             
             if (this.taulukko[y][x].getPommi()) {
                 i--;
@@ -139,6 +141,7 @@ public class Minesweep {
             }
             
             this.taulukko[y][x].setPommi();
+            this.taulukko[y][x].monta = -1;
             
             for (int j = y - 1; j <= y + 1; j++) {
                 

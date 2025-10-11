@@ -123,11 +123,10 @@ public class Solufx extends Pane {
      */
     public void handleLClick() {
         
-        if (this.onAvattu()) {
+        if (this.onAvattu() || this.flagged) {
             return;
         }
         
-        // TODO temp. poista:
         this.setVari(this.pelisolu.getPommi() ? "red" : "green");
         
         this.isanta.handleClick(this);
@@ -145,6 +144,8 @@ public class Solufx extends Pane {
         Label teksti = new Label(String.valueOf(this.pelisolu.getMonta()));
         teksti.setAlignment(Pos.BASELINE_CENTER);
         teksti.setPrefSize(40, 40);
+        
+        if (this.onPommi()) teksti.setText("💣");
         
         this.getChildren().add(teksti);
         this.setVari(this.pelisolu.getPommi() ? "red" : "white");

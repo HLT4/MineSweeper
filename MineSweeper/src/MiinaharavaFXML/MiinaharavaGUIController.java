@@ -28,17 +28,17 @@ public class MiinaharavaGUIController {
     private Minesweep maingame;
     
     /**
-     * @param y rivien määrä
-     * @param x sarakkeiden määrä
-     * @param ms Peli
      * @param stage Ikkuna tms ???
      */
-    public void alustus(int y, int x, Minesweep ms, Stage stage) {
+    public void alustus(Stage stage) {
 
         this.gridisolut = gridi.getChildren();
         
         // peli pitäis alustaa vasta ensimmäisen klikkauksen jälkeen, ettei heti kuole
-        this.maingame = ms; // todo erikokoiset pelit
+        this.maingame = new Minesweep(5, 9, 20); // TODO erikokoiset pelit
+        
+        int y = this.maingame.getY();
+        int x = this.maingame.getX();
         
         this.solut = new Solut(y, x);
         this.solut.alustus(this.maingame.getTaulukko());
