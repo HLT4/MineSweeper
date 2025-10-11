@@ -34,7 +34,7 @@ public class Solut {
         for (int i = 0; i < this.y; i++) {
             
             for (int j = 0; j < this.x; j++) {
-                Solufx s = new Solufx(this);
+                Solufx s = new Solufx(this, i, j);
                 s.asetaSolu(t[i][j]);
                 s.setPrefSize(40, 40); s.setMaxSize(40, 40);
                 s.setMinSize(40, 40);
@@ -46,7 +46,6 @@ public class Solut {
                         s.handleLClick();
                     }
                     
-                 // TODO näyttää ymp. pommien määrän
                 });
                 
                 this.taulukko[i][j] = s;
@@ -67,8 +66,23 @@ public class Solut {
     /**
      * Kutsu tulee ns. alempaa, eli yksittäiseltä solulta. Tehty näin, jotta voi klikata
      * yksittäistä solua ja sitte hypätään heti ulos ja tää hoitaa logiikan  
+     * @param klikattu Klikattu solu
      */
-    public void handleClick() {
+    public void handleClick(Solufx klikattu) {
+        if (klikattu.getMonta() == 0) {
+            
+            int yy = klikattu.getY();
+            int xx = klikattu.getX();
+            
+            for (int i = yy - 1; i <= yy + 1; i++) {
+                if (i < 0 || i >= this.y) continue;
+                for (int j = xx - 1; j <= xx + 1; j++) {
+                    if (j < 0 || j >= this.x) continue;
+                    if (this.getSolu(yy, xx).onAvattu())
+                }
+            }
+            
+        }
         // TODO jos 0 => avaa naapureita
         // TODO jos pommi => häviä
         // TODO jos ei pommi => avaa

@@ -1,7 +1,5 @@
 package MiinaharavaFXML;
 
-import java.awt.Font;
-
 import MiinaharavaFXML.Minesweep.Solu;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -15,6 +13,25 @@ public class Solufx extends Pane {
     private Solu pelisolu;
     private Solut isanta;
     
+    private int x;
+    private int y;
+    
+    
+    
+    /**
+     * @return x-koordinaatti
+     */
+    public int getX() {
+        return this.x;
+    }
+    
+    
+    /**
+     * @return Y-koordinaatti
+     */
+    public int getY() {
+        return this.y;
+    }
     
     
     /**
@@ -24,12 +41,32 @@ public class Solufx extends Pane {
         return this.pelisolu.getPommi();
     }
     
+    
+    /**
+     * @return Kuinka monta miinaa ympärillä
+     */
+    public int getMonta() {
+        return this.pelisolu.getMonta();
+    }
+    
+    
+    /**
+     * @return true, jos ruutu on jo avattu
+     */
+    public boolean onAvattu() {
+        return this.pelisolu.getAvattu();
+    }
+    
     /**
      * Alustin
      * @param i Viite kontaineriluokkaan
+     * @param x x-koordinaatti
+     * @param y y-koordinaatti
      */
-    public Solufx(Solut i) {
+    public Solufx(Solut i, int y, int x) {
         this.isanta = i;
+        this.y = y;
+        this.x = x;
     }
     
     
@@ -55,14 +92,18 @@ public class Solufx extends Pane {
         // TODO temp. poista:
         this.setVari(this.pelisolu.getPommi() ? "red" : "green");
         
+        this.isanta.handleClick(this);
+    }
+    
+    
+    /**
+     * Avaa solun
+     */
+    public void avaa() {
         Label teksti = new Label(String.valueOf(this.pelisolu.getMonta()));
         teksti.setAlignment(Pos.BASELINE_CENTER);
         teksti.setPrefSize(40, 40);
-        teksti.setStyle("-fx");
-        
         this.getChildren().add(teksti);
-        
-        this.isanta.handleClick();
     }
     
     /**
