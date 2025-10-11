@@ -13,9 +13,28 @@ public class Solufx extends Pane {
     private Solu pelisolu;
     private Solut isanta;
     
-    private int x;
     private int y;
+    private int x;
     
+    private boolean loydetty = true;
+    
+    
+    
+    /**
+     * Käytetään, kun nollasolu löytyy
+     */
+    public void loytyi() {
+        this.loydetty = true;
+    }
+    
+    
+    /**
+     * Vain nollasolujen etsimistä varten
+     * @return true, jos on jo löydetty 
+     */
+    public boolean onLoydetty() {
+        return this.loydetty;
+    }
     
     
     /**
@@ -100,10 +119,14 @@ public class Solufx extends Pane {
      * Avaa solun
      */
     public void avaa() {
+        if (this.onAvattu()) return;
+        
         Label teksti = new Label(String.valueOf(this.pelisolu.getMonta()));
         teksti.setAlignment(Pos.BASELINE_CENTER);
         teksti.setPrefSize(40, 40);
+        
         this.getChildren().add(teksti);
+        this.setVari(this.pelisolu.getPommi() ? "red" : "green");
     }
     
     /**
@@ -116,11 +139,13 @@ public class Solufx extends Pane {
     
     
     /**
-     * Asettaa solufx:n soluksi pelin sisäisen varsinaisen solun
+     * Asettaa solufx:n soluksi pelin sisäisen varsinaisen solun ja tekstin, joka kertoo
+     * kuinka monta miinaa ympärillä on
      * @param solu Asetettava solu
      */
     public void asetaSolu(Solu solu) {
         this.pelisolu = solu;
+        if (solu.getMonta() == 0) this.loydetty = false;
     }
     
 }

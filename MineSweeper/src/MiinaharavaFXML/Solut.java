@@ -1,5 +1,7 @@
 package MiinaharavaFXML;
 
+import java.util.ArrayList;
+
 import MiinaharavaFXML.Minesweep.Solu;
 import javafx.scene.input.MouseButton;
 
@@ -12,7 +14,7 @@ public class Solut {
     private int x;
     
     private Solufx[][] taulukko;
-    
+    private ArrayList<Solufx> nollalista = new ArrayList<Solufx>();
     
     /**
      * Konstruktori
@@ -49,6 +51,7 @@ public class Solut {
                 });
                 
                 this.taulukko[i][j] = s;
+                
             }
             
         }
@@ -69,23 +72,89 @@ public class Solut {
      * @param klikattu Klikattu solu
      */
     public void handleClick(Solufx klikattu) {
+        klikattu.avaa();
+        
+        if (klikattu.onPommi()) havio();
+        
         if (klikattu.getMonta() == 0) {
-            
-            int yy = klikattu.getY();
-            int xx = klikattu.getX();
-            
-            for (int i = yy - 1; i <= yy + 1; i++) {
-                if (i < 0 || i >= this.y) continue;
-                for (int j = xx - 1; j <= xx + 1; j++) {
-                    if (j < 0 || j >= this.x) continue;
-                    if (this.getSolu(yy, xx).onAvattu())
-                }
-            }
-            
+            this.etsiNollat(klikattu, true);
+            for (Solufx nolla : this.nollalista) this.avaaNaapurit(nolla);
         }
+        
         // TODO jos 0 => avaa naapureita
         // TODO jos pommi => häviä
         // TODO jos ei pommi => avaa
+    }
+    
+    
+    /**
+     * Häviö
+     */
+    public void havio() {
+        // TODO
+        return;
+    }
+    
+    
+    /**
+     * Jos avatun solun ympärillä ei ole pommeja, avaa naapurisolut
+     * @param nolla Avattu nollasolu
+     * @param ekakierros Aseta aina true ensimmäisellä kierroksella, muuten false
+     */
+    public void etsiNollat(Solufx nolla, boolean ekakierros) {
+        int yy = nolla.getY();
+        int xx = nolla.getX();
+        
+        for (int i = yy - 1; i <= yy + 1; i++) {
+            if (i < 0 || i >= this.y) continue;
+            for (int j = xx - 1; j <= xx + 1; j++) {
+                if (j < 0 || j >= this.x) continue;
+                
+                Solufx naapuri = this.getSolu(i, j);
+                
+                if (naapuri.onLoydetty()) {
+                    continue;
+                }
+                
+                this.nollalista.add(naapuri);
+                naapuri.loytyi();
+                
+            }
+        }
+        
+        if (ekakierros) {
+            for (int i = 0; i < this.nollalista.size(); i++) {
+                this.etsiNollat(this.nollalista.get(i), false);
+            }
+        }
+        
+        
+    }
+    
+    
+    /**
+     * Avaa nollasolujen naapurit
+     * @param nolla Solu, jonka naapurit avataan
+     */
+    public void avaaNaapurit(Solufx nolla) {
+        int yy = nolla.getY();
+        int xx = nolla.getX();
+        
+        for (int i = yy - 1; i <= yy + 1; i++) {
+            if (i < 0 || i >= this.y) continue;
+            for (int j = xx - 1; j <= xx + 1; j++) {
+                if (j < 0 || j >= this.x) continue;
+                
+                Solufx naapuri = this.getSolu(i, j);
+                
+                if (naapuri.onAvattu()) {
+                    continue;
+                }
+                
+                naapuri.avaa();
+                
+            }
+        }
     }
     
     
