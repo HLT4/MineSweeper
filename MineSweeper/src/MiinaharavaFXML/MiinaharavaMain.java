@@ -20,7 +20,7 @@ public class MiinaharavaMain extends Application {
             final Pane root = ldr.load();
             final MiinaharavaGUIController miinaharavaCtrl = (MiinaharavaGUIController) ldr.getController();
             
-            Minesweep peli = new Minesweep();
+            Minesweep peli = new Minesweep(10, 10);
             int Y = peli.getY();
             int X = peli.getX();
             

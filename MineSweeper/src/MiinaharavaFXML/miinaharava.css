@@ -6,3 +6,10 @@ Solufx
 	-fx-border-color: black;
 	-fx-background-color: grey; 
 }
+
+Label
+{
+	-fx-color: black;
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+}

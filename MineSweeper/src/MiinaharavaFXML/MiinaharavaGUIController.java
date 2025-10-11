@@ -3,6 +3,7 @@ package MiinaharavaFXML;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -17,9 +18,11 @@ public class MiinaharavaGUIController {
 
     @FXML
     private GridPane gridi;
+    
+    @FXML
+    private MenuBar fxMenu;
 
     private ObservableList<Node> gridisolut;
-    private Stage ikkuna; 
 
     private Solut solut;
     private Minesweep maingame;
@@ -33,7 +36,6 @@ public class MiinaharavaGUIController {
     public void alustus(int y, int x, Minesweep ms, Stage stage) {
 
         this.gridisolut = gridi.getChildren();
-        this.ikkuna = stage;
         
         // peli pitäis alustaa vasta ensimmäisen klikkauksen jälkeen, ettei heti kuole
         this.maingame = ms; // todo erikokoiset pelit
@@ -53,10 +55,21 @@ public class MiinaharavaGUIController {
             }
         }
         
-        
         maingame.tulostaTaul();
         
-        stage.sizeToScene();
+        int lev = x * 42 - 2;
+        int kor = y * 42 + 46;
+        
+        stage.setMaxHeight(kor);
+        stage.setMaxWidth(lev);
+        
+        stage.setMinHeight(kor);
+        stage.setMinWidth(lev);
+        
+        fxMenu.setMaxWidth(lev);
+        fxMenu.setMinWidth(lev);
+        
+        //stage.sizeToScene();
 
     }
 

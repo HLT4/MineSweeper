@@ -1,6 +1,10 @@
 package MiinaharavaFXML;
 
+import java.awt.Font;
+
 import MiinaharavaFXML.Minesweep.Solu;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 /**
@@ -11,6 +15,15 @@ public class Solufx extends Pane {
     private Solu pelisolu;
     private Solut isanta;
     
+    
+    
+    /**
+     * @return True, jos solu on pommi
+     */
+    public boolean onPommi() {
+        return this.pelisolu.getPommi();
+    }
+    
     /**
      * Alustin
      * @param i Viite kontaineriluokkaan
@@ -20,6 +33,9 @@ public class Solufx extends Pane {
     }
     
     
+    /**
+     * Käsittelijä hiiren oikean näppäimen painallukselle
+     */
     public void handleRClick() {
         
         // TODO temp
@@ -38,6 +54,13 @@ public class Solufx extends Pane {
         
         // TODO temp. poista:
         this.setVari(this.pelisolu.getPommi() ? "red" : "green");
+        
+        Label teksti = new Label(String.valueOf(this.pelisolu.getMonta()));
+        teksti.setAlignment(Pos.BASELINE_CENTER);
+        teksti.setPrefSize(40, 40);
+        teksti.setStyle("-fx");
+        
+        this.getChildren().add(teksti);
         
         this.isanta.handleClick();
     }
