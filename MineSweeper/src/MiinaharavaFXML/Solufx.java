@@ -16,6 +16,7 @@ public class Solufx extends Pane {
     private int y;
     private int x;
     
+    private boolean flagged = false;
     private boolean loydetty = true;
     
     
@@ -70,6 +71,14 @@ public class Solufx extends Pane {
     
     
     /**
+     * @return true, jos solu on liputettu
+     */
+    public boolean onLiputettu() {
+        return this.flagged;
+    }
+    
+    
+    /**
      * @return true, jos ruutu on jo avattu
      */
     public boolean onAvattu() {
@@ -94,8 +103,18 @@ public class Solufx extends Pane {
      */
     public void handleRClick() {
         
-        // TODO temp
-        this.setVari("blue");
+        // TODO lippu
+        if (this.onAvattu()) return;
+        
+        if (this.flagged) {
+            this.flagged = false;
+            this.setVari("grey");
+        }
+        else {
+            this.flagged = true;
+            this.setVari("blue");
+        }
+        
         
     }
     
@@ -104,7 +123,7 @@ public class Solufx extends Pane {
      */
     public void handleLClick() {
         
-        if (pelisolu.getAvattu()) {
+        if (this.onAvattu()) {
             return;
         }
         
@@ -121,12 +140,14 @@ public class Solufx extends Pane {
     public void avaa() {
         if (this.onAvattu()) return;
         
+        this.pelisolu.avaa();
+        
         Label teksti = new Label(String.valueOf(this.pelisolu.getMonta()));
         teksti.setAlignment(Pos.BASELINE_CENTER);
         teksti.setPrefSize(40, 40);
         
         this.getChildren().add(teksti);
-        this.setVari(this.pelisolu.getPommi() ? "red" : "green");
+        this.setVari(this.pelisolu.getPommi() ? "red" : "white");
     }
     
     /**

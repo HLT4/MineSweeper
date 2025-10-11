@@ -105,6 +105,7 @@ public class Solut {
         int yy = nolla.getY();
         int xx = nolla.getX();
         
+        
         for (int i = yy - 1; i <= yy + 1; i++) {
             if (i < 0 || i >= this.y) continue;
             for (int j = xx - 1; j <= xx + 1; j++) {
@@ -112,7 +113,7 @@ public class Solut {
                 
                 Solufx naapuri = this.getSolu(i, j);
                 
-                if (naapuri.onLoydetty()) {
+                if (naapuri.onLoydetty() || naapuri.onLiputettu()) {
                     continue;
                 }
                 
@@ -147,7 +148,7 @@ public class Solut {
                 
                 Solufx naapuri = this.getSolu(i, j);
                 
-                if (naapuri.onAvattu()) {
+                if (naapuri.onAvattu() || naapuri.onLiputettu()) {
                     continue;
                 }
                 
