@@ -6,6 +6,7 @@ import Miinaharava.Minesweep;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -24,6 +25,9 @@ public class MiinaharavaGUIController {
     
     @FXML
     private MenuBar fxMenu;
+    
+    @FXML
+    private Label mineLabel;
 
     private ObservableList<Node> gridisolut;
 
@@ -62,7 +66,7 @@ public class MiinaharavaGUIController {
         maingame.tulostaTaul();
         
         int lev = x * 42 - 2;
-        int kor = y * 42 + 46;
+        int kor = y * 42 + 96;
         
         stage.setMaxHeight(kor);
         stage.setMaxWidth(lev);

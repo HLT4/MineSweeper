@@ -17,10 +17,24 @@ import javafx.fxml.FXMLLoader;
 public class MiinaharavaMain extends Application {
     @Override
     public void start(Stage primaryStage) {
+        
+        ArrayList<Integer> settings = new ArrayList<Integer>();
         try {
             
-            AloitusDialogi a = new AloitusDialogi();
-            ArrayList<Integer> settings = a.getResult();
+            startupDialog();
+            
+            while (true) {
+                AloitusDialogi a = new AloitusDialogi();
+                settings = a.getResult();
+                
+                if (settings != null)  {
+                    break;
+                }
+                
+                if (a.getClose()) return;
+                
+            }
+            
             
             FXMLLoader ldr = new FXMLLoader(getClass().getResource("MiinaharavaGUIView.fxml"));
             final Pane root = ldr.load();
@@ -33,6 +47,28 @@ public class MiinaharavaMain extends Application {
             primaryStage.setScene(scene);
             primaryStage.setTitle("Miinaharava");
             primaryStage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+
+    private void startupDialog() {
+        try {
+            Stage startup = new Stage();
+            FXMLLoader ldr = new FXMLLoader(getClass().getResource("MiinaharavaGUIView.fxml"));
+            final Pane root = ldr.load();
+            final StartDialogController startCtrl = (StartDialogController)ldr.getController();
+            
+            startCtrl.setIsanta(this);
+            
+            
+            
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("miinaharava.css").toExternalForm());
+            startup.setScene(scene);
+            startup.setTitle("Miinaharava");
+            startup.show();
         } catch(Exception e) {
             e.printStackTrace();
         }

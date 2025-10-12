@@ -23,8 +23,8 @@ import javafx.scene.layout.GridPane;
  */
 public class AloitusDialogi {
     
-    ArrayList<Integer> results = new ArrayList<Integer>();
-    
+    private ArrayList<Integer> results = new ArrayList<Integer>();
+    private boolean close = false;
     /**
      * Creates the startup dialog
      */
@@ -38,6 +38,10 @@ public class AloitusDialogi {
         dialog.setTitle("Choose settings");
         ButtonType okButtonType = new ButtonType("OK", ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(okButtonType);
+        
+        dialog.setOnCloseRequest( event -> {
+            this.close = true;
+        });
         
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -94,11 +98,13 @@ public class AloitusDialogi {
         
         Optional<ArrayList<Integer>> result = dialog.showAndWait();
         
-        result.ifPresent(value -> {
+        
+        result.ifPresentOrElse(value -> {
             this.results.set(0, value.get(0));
             this.results.add(1, value.get(1));
             this.results.add(2, value.get(2));
-
+        }, () -> {
+            this.results = null;
         });
         
     }
@@ -110,6 +116,13 @@ public class AloitusDialogi {
      */
     public ArrayList<Integer> getResult() {
         return this.results;
+    }
+    
+    /**
+     * @return True if window closed
+     */
+    public boolean getClose() {
+        return this.close;
     }
    
     

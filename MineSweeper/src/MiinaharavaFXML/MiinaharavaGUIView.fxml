@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
@@ -12,21 +14,7 @@
    <children>
       <MenuBar fx:id="fxMenu">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
+          <Menu mnemonicParsing="false" text="New" />
         </menus>
       </MenuBar>
       <GridPane fx:id="gridi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="320.0">
@@ -38,5 +26,23 @@
          </rowConstraints>
          
       </GridPane>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="35.0" />
+         </padding>
+         <children>
+            <Label fx:id="mineLabel" text="💣:0">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
    </children>
 </VBox>
