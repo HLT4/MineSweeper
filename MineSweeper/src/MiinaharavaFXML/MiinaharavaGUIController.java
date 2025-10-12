@@ -2,6 +2,7 @@ package MiinaharavaFXML;
 
 
 import Miinaharava.Minesweep;
+import fi.jyu.mit.fxgui.ModalController;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -27,11 +28,21 @@ public class MiinaharavaGUIController {
     
     @FXML
     private Label mineLabel;
-
+    
+    private Stage mainStage;
+    
     private ObservableList<Node> gridisolut;
 
     private Solut solut;
     private Minesweep maingame;
+    
+    
+    @FXML
+    void handleNew() {
+        ModalController.closeStage(this.fxMenu);
+        MiinaharavaMain miinaharavaMain = new MiinaharavaMain();
+        miinaharavaMain.start(this.mainStage);
+    }
     
     /**
      * @param settings Arraylist amounts of rows, columns and mines
@@ -40,8 +51,8 @@ public class MiinaharavaGUIController {
     public void alustus(int[] settings, Stage stage) {
 
         this.gridisolut = gridi.getChildren();
+        this.mainStage = stage;
         
-        // peli pitäis alustaa vasta ensimmäisen klikkauksen jälkeen, ettei heti kuole
         this.maingame = new Minesweep(settings[1], settings[0]);
         
         int y = this.maingame.getY();
