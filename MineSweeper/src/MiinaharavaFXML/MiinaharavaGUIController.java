@@ -47,7 +47,7 @@ public class MiinaharavaGUIController {
         int y = this.maingame.getY();
         int x = this.maingame.getX();
         
-        this.solut = new Solut(y, x, this.maingame, settings[2]);
+        this.solut = new Solut(y, x, this.maingame, settings[2], this.mineLabel);
         this.solut.alustus(this.maingame.getTaulukko());
         
         for (int i = 0; i < y; i++) {

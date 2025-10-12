@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import Miinaharava.Minesweep;
 import Miinaharava.Minesweep.Solu;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 
 /**
@@ -11,10 +14,11 @@ import javafx.scene.input.MouseButton;
  */
 public class Solut {
 
+    private Label mineLabel;
     private Minesweep game;
     private boolean firstClick = true;
     private int pommimaara;
-    
+    private int minesLeft;
     private int y;
     private int x;
     
@@ -27,13 +31,17 @@ public class Solut {
      * @param x Sarakkeiden määrä
      * @param game Game object
      * @param pommimaara Amount of mines
+     * @param mineLabel Label that shows amount of mines left
      */
-    public Solut(int y, int x, Minesweep game, int pommimaara) {
+    public Solut(int y, int x, Minesweep game, int pommimaara, Label mineLabel) {
         this.y = y;
         this.x = x;
         this.taulukko = new Solufx[y][x];
         this.game = game;
         this.pommimaara = pommimaara;
+        this.minesLeft = pommimaara;
+        this.mineLabel = mineLabel;
+        this.mineLabel.setText("💣: " + pommimaara);
     }
     
     
@@ -89,6 +97,7 @@ public class Solut {
             return;
         }
         klikattu.avaa();
+        this.checkVictory();
         
         if (klikattu.onPommi()) havio();
         
@@ -100,6 +109,30 @@ public class Solut {
     }
     
     
+    /**
+     * Checks if game has been won
+     * @return true if game has been won
+     */
+    public boolean checkVictory() {
+        for (int i = 0; i < this.y; i++) {
+            for (int j = 0; j < this.x; j++) {
+                Solufx cell = this.taulukko[i][j];
+                if (cell.onPommi() && !cell.onLiputettu()) return false;
+                if (!cell.onPommi() && !cell.onAvattu()) return false;
+                
+            }
+        }
+        System.out.println("Voitit!");
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("You won!");
+        alert.setHeaderText(null);
+        alert.setContentText("Congratulations!");
+        alert.showAndWait();    
+        return true;
+        
+    }
+
+
     /**
      * Updates the visual cells to have values of initialized game cells
      */
@@ -202,6 +235,24 @@ public class Solut {
      */
     public Solufx getSolu(int iy, int ix) {
         return this.taulukko[iy][ix];
+    }
+
+
+    /**
+     * Decreases amount of mines left (flagging a cell)
+     */
+    public void subMinesLeft() {
+        this.minesLeft--;
+        this.mineLabel.setText("💣: " + this.minesLeft);
+    }
+    
+    
+    /**
+     * Increases amount of mines left (unflagging a flagged cell)
+     */
+    public void addMinesLeft() {
+        this.minesLeft++;
+        this.mineLabel.setText("💣: " + this.minesLeft);
     }
     
 }

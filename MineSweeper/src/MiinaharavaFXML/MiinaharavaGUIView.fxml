@@ -31,13 +31,10 @@
       </GridPane>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+            <Insets top="35.0" />
          </VBox.margin>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
-         </padding>
          <children>
-            <Label fx:id="mineLabel" text="💣:0">
+            <Label fx:id="mineLabel" text="💣: 0">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>

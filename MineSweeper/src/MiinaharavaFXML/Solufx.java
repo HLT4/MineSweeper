@@ -103,12 +103,12 @@ public class Solufx extends Pane {
      */
     public void handleRClick() {
         
-        // TODO lippu
         if (this.onAvattu()) return;
         
         if (this.flagged) {
             this.flagged = false;
-            this.getChildren().clear();;
+            this.getChildren().clear();
+            this.isanta.addMinesLeft();
         }
         else {
             this.flagged = true;
@@ -117,6 +117,8 @@ public class Solufx extends Pane {
             lippu.setAlignment(Pos.BASELINE_CENTER);
             lippu.setPrefSize(40, 40);
             this.getChildren().add(lippu);
+            this.isanta.subMinesLeft();
+            this.isanta.checkVictory();
         }
         
         
@@ -144,7 +146,7 @@ public class Solufx extends Pane {
         
         this.pelisolu.avaa();
         
-        Label teksti = new Label(String.valueOf(this.pelisolu.getMonta()));
+        Label teksti = new Label(this.getMonta() == 0 ? " " : String.valueOf(this.pelisolu.getMonta()));
         teksti.setAlignment(Pos.BASELINE_CENTER);
         teksti.setPrefSize(40, 40);
         
