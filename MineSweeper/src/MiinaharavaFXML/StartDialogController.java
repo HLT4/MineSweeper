@@ -1,10 +1,16 @@
 package MiinaharavaFXML;
 
+import javax.naming.directory.InvalidAttributesException;
+
 import fi.jyu.mit.fxgui.ModalController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 
 /**
@@ -25,8 +31,6 @@ public class StartDialogController {
     private TextField rows;
 
     int[] results = { 9, 9, 15 };
-
-    private MiinaharavaMain isanta;
     
     
     
@@ -42,28 +46,52 @@ public class StartDialogController {
             this.results[1] = c;
             this.results[2] = m;
             
-        } catch (Exception e) {
+            if (results[0] <= 3 || results[1] <= 3 || results[2] < 0) {
+                throw new InvalidAttributesException(); // Should make a new exception class but lazy
+            }
+            
+            if (results[2] >= results[0] * results[1]) {
+                throw new IndexOutOfBoundsException(); // Should make a new exception class but lazy
+            }
+            
+        } catch (InvalidAttributesException e) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Bad input");
             alert.setHeaderText(null);
-            alert.setContentText("Input should be a whole number");
+            alert.setContentText("Input for rows and columns should be a whole number greater than three"
+                    + "and greater than zero for mines");
+            alert.showAndWait();
+            return;
+        } catch (IndexOutOfBoundsException e) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Bad input");
+            alert.setHeaderText(null);
+            alert.setContentText("Amount of mines cannot exceed or equal total cells");
             alert.showAndWait();
             return;
         }
         
-        this.isanta.setValues(this.results);
         ModalController.closeStage(columns);
+        
+        try {
+            Stage stage = new Stage();
+            FXMLLoader ldr = new FXMLLoader(getClass().getResource("MiinaharavaGUIView.fxml"));
+            final Pane root = ldr.load();
+            MiinaharavaGUIController miinaharavaCtrl = (MiinaharavaGUIController) ldr.getController();
+            
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("miinaharava.css").toExternalForm());
+            stage.setScene(scene);
+            stage.setTitle("Miinaharava");
+            
+            miinaharavaCtrl.alustus(this.results, stage);
+            stage.show();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
         
     }
 
-    
-    /**
-     * Sets the parent of this controller to the object that called it
-     * @param isanta Object that called this method
-     */
-    public void setIsanta(MiinaharavaMain isanta) {
-        this.isanta = isanta;
-    }
 
 
     /**

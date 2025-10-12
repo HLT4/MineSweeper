@@ -73,7 +73,6 @@ public class MiinaharavaGUIController {
             }
         }
         
-        maingame.tulostaTaul();
         
         int lev = x * 42 + 18;
         int kor = y * 42 + 116;
