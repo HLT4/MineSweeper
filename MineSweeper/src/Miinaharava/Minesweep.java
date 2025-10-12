@@ -20,37 +20,62 @@ public class Minesweep {
         
         private boolean onAvattu = false;
         
+        /**
+         * Initalizes a new cell
+         */
         public Solu() {
             this.monta = 0;
             this.onPommi = false;
         }
         
+        /**
+         * Sets this cell as a mine
+         */
         public void setPommi() {
             this.onPommi = true;
         }
         
+        /**
+         * Increments the amount of mines around this cell
+         */
         public void nostaLkm() {
             this.monta++;
         }
         
+        /**
+         * @return Amount of mines around this cell
+         */
         public int getMonta() {
             return this.monta;
         }
         
+        /**
+         * @return ture if this cell is a mine
+         */
         public boolean getPommi() {
             return this.onPommi;
         }
         
+        /**
+         * Opens the cell
+         */
         public void avaa() {
             this.onAvattu = true;
         }
         
+        /**
+         * @return ture if cell has been opened
+         */
         public boolean getAvattu() {
             return this.onAvattu;
         }
         
+        /**
+         * For debug
+         * @return M if the cell is a mine, otherwise amount of mines next to this cell
+         */
         public String getTulostettava() {
-            if (this.onPommi) return "P";
+            if (this.onPommi) return "M";
             return String.valueOf(this.monta);
         }
         
@@ -64,7 +89,7 @@ public class Minesweep {
     /**
      * @param Yaks Y-pituus
      * @param Xaks X-pituus
-     * @param pommimaara Pommien määrä, -1, jos autom. helppo versio
+     * @param pommimaara Pommien määrä, jos -1, helppo versio
      */
     public Minesweep(int Yaks, int Xaks, int pommimaara) {
         this.Yaks = Yaks;
@@ -86,6 +111,18 @@ public class Minesweep {
         this(9, 9, -1);
     }
 
+    
+    /**
+     * Constructs a mineless game
+     * @param Yaks Num of rows
+     * @param Xaks Num of columns
+     */
+    public Minesweep(int Yaks, int Xaks) {
+        this.Yaks = Yaks;
+        this.Xaks = Xaks;
+        this.taulukko = new Solu[Yaks][Xaks];
+        this.alustaTyhja();
+    }
     
     /**
      * Palauttaa pystysuorien rivien määrän
@@ -125,11 +162,15 @@ public class Minesweep {
     }
     
     
-    /*
+    /**
      * Initializes a game with all cells set to 0
      */
     public void alustaTyhja() {
-        return;
+        for (int a = 0; a < this.Yaks; a++) {
+            for (int b = 0; b < this.Xaks; b++) {
+                this.taulukko[a][b] = new Solu();
+            }
+        }
     }
     
     /**
@@ -152,6 +193,56 @@ public class Minesweep {
                 i--;
                 continue;
             }
+            
+            this.taulukko[y][x].setPommi();
+            this.taulukko[y][x].monta = -1;
+            
+            for (int j = y - 1; j <= y + 1; j++) {
+                
+                if (j < 0 || j >= this.Yaks) continue;
+                
+                for (int k = x - 1; k <= x + 1; k++) {
+                    
+                    if (k < 0 || k >= this.Xaks) continue;
+                    
+                    if (!this.taulukko[j][k].getPommi()) this.taulukko[j][k].nostaLkm(); 
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    /**
+     * Initializes a game where the cell at [y][x] is empty
+     * @param yy Y-coordinate of the cell
+     * @param xx X-coordinate of the cell
+     * @param mines Amount of mines in the game
+     */
+    public void alusta(int yy, int xx, int mines) {
+        Random rand = new Random();
+        
+        this.pommimaara = mines;
+        
+        for (int i = 0; i < this.pommimaara; i++) {
+            int y = rand.nextInt(this.Yaks);
+            int x = rand.nextInt(this.Xaks);
+            
+            if (this.taulukko[y][x].getPommi()) {
+                i--;
+                continue;
+            }
+            
+            if (y == yy || y == yy - 1 || y == yy + 1) {
+                if (x == xx || x == xx - 1 || x == xx + 1) {
+                    i--;
+                    continue;
+                }
+            }
+            
             
             this.taulukko[y][x].setPommi();
             this.taulukko[y][x].monta = -1;

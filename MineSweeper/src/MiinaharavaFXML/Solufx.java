@@ -127,8 +127,6 @@ public class Solufx extends Pane {
             return;
         }
         
-        this.setVari(this.pelisolu.getPommi() ? "red" : "green");
-        
         this.isanta.handleClick(this);
     }
     
@@ -137,6 +135,7 @@ public class Solufx extends Pane {
      * Avaa solun
      */
     public void avaa() {
+        this.setVari(this.pelisolu.getPommi() ? "red" : "green");
         if (this.onAvattu()) return;
         
         this.pelisolu.avaa();
@@ -167,7 +166,22 @@ public class Solufx extends Pane {
      */
     public void asetaSolu(Solu solu) {
         this.pelisolu = solu;
-        if (solu.getMonta() == 0) this.loydetty = false;
+        
+        this.loydetty = !(solu.getMonta() == 0);
+    }
+    
+    
+    /**
+     * @return a string rep. of cell for debug printing 
+     */
+    public String debugPrintable() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("|");
+        sb.append(this.pelisolu.getMonta());
+        sb.append(this.flagged ? "F" : "!");
+        sb.append(this.loydetty ? "L" : "!");
+        sb.append("|");
+        return sb.toString();
     }
     
 }

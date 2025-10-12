@@ -39,12 +39,12 @@ public class MiinaharavaGUIController {
         this.gridisolut = gridi.getChildren();
         
         // peli pitäis alustaa vasta ensimmäisen klikkauksen jälkeen, ettei heti kuole
-        this.maingame = new Minesweep(settings.get(1), settings.get(0), settings.get(2)); // TODO erikokoiset pelit
+        this.maingame = new Minesweep(settings.get(1), settings.get(0));
         
         int y = this.maingame.getY();
         int x = this.maingame.getX();
         
-        this.solut = new Solut(y, x);
+        this.solut = new Solut(y, x, this.maingame, settings.get(2));
         this.solut.alustus(this.maingame.getTaulukko());
         
         for (int i = 0; i < y; i++) {

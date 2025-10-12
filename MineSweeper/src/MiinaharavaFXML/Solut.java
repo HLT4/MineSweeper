@@ -2,6 +2,7 @@ package MiinaharavaFXML;
 
 import java.util.ArrayList;
 
+import Miinaharava.Minesweep;
 import Miinaharava.Minesweep.Solu;
 import javafx.scene.input.MouseButton;
 
@@ -10,6 +11,10 @@ import javafx.scene.input.MouseButton;
  */
 public class Solut {
 
+    private Minesweep game;
+    private boolean firstClick = true;
+    private int pommimaara;
+    
     private int y;
     private int x;
     
@@ -20,11 +25,15 @@ public class Solut {
      * Konstruktori
      * @param y Rivien määrä
      * @param x Sarakkeiden määrä
+     * @param game Game object
+     * @param pommimaara Amount of mines
      */
-    public Solut(int y, int x) {
+    public Solut(int y, int x, Minesweep game, int pommimaara) {
         this.y = y;
         this.x = x;
         this.taulukko = new Solufx[y][x];
+        this.game = game;
+        this.pommimaara = pommimaara;
     }
     
     
@@ -72,6 +81,13 @@ public class Solut {
      * @param klikattu Klikattu solu
      */
     public void handleClick(Solufx klikattu) {
+        if (this.firstClick) {
+            this.game.alusta(klikattu.getY(), klikattu.getX(), this.pommimaara);
+            this.firstClick = false;
+            this.updateCells();
+            this.handleClick(klikattu);
+            return;
+        }
         klikattu.avaa();
         
         if (klikattu.onPommi()) havio();
@@ -79,7 +95,26 @@ public class Solut {
         if (klikattu.getMonta() == 0) {
             this.etsiNollat(klikattu, true);
             for (Solufx nolla : this.nollalista) this.avaaNaapurit(nolla);
+            this.nollalista = new ArrayList<Solufx>();
         }
+    }
+    
+    
+    /**
+     * Updates the visual cells to have values of initialized game cells
+     */
+    public void updateCells() {
+        Solu[][] pelisolut = this.game.getTaulukko();
+        for (int i = 0; i < this.y; i++) {
+            for (int j = 0; j < this.x; j++) {
+                taulukko[i][j].asetaSolu(pelisolut[i][j]);
+                System.out.print(taulukko[i][j].debugPrintable());
+            }
+            System.out.println();
+        }
+        
+        
+        
     }
     
     
