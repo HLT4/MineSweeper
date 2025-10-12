@@ -75,7 +75,7 @@ public class MiinaharavaGUIController {
         
         
         int lev = x * 42 + 18;
-        int kor = y * 42 + 116;
+        int kor = y * 42 + 96;
         
         stage.setMaxHeight(kor);
         stage.setMaxWidth(lev);
@@ -83,10 +83,7 @@ public class MiinaharavaGUIController {
         stage.setMinHeight(kor);
         stage.setMinWidth(lev);
         
-        fxMenu.setMaxWidth(lev);
-        fxMenu.setMinWidth(lev);
-        
-        //stage.sizeToScene();
+        this.mineLabel.setPrefHeight(60);
 
     }
 
