@@ -1,8 +1,7 @@
 package MiinaharavaFXML;
 
-import java.util.ArrayList;
-
 import javafx.application.Application;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -15,30 +14,18 @@ import javafx.fxml.FXMLLoader;
  *
  */
 public class MiinaharavaMain extends Application {
+    
+    private int[] settings;
     @Override
     public void start(Stage primaryStage) {
         
-        ArrayList<Integer> settings = new ArrayList<Integer>();
         try {
-            
+
             startupDialog();
-            
-            while (true) {
-                AloitusDialogi a = new AloitusDialogi();
-                settings = a.getResult();
-                
-                if (settings != null)  {
-                    break;
-                }
-                
-                if (a.getClose()) return;
-                
-            }
-            
             
             FXMLLoader ldr = new FXMLLoader(getClass().getResource("MiinaharavaGUIView.fxml"));
             final Pane root = ldr.load();
-            final MiinaharavaGUIController miinaharavaCtrl = (MiinaharavaGUIController) ldr.getController();
+            MiinaharavaGUIController miinaharavaCtrl = (MiinaharavaGUIController) ldr.getController();
             
             miinaharavaCtrl.alustus(settings, primaryStage);
             
@@ -56,19 +43,18 @@ public class MiinaharavaMain extends Application {
     private void startupDialog() {
         try {
             Stage startup = new Stage();
-            FXMLLoader ldr = new FXMLLoader(getClass().getResource("MiinaharavaGUIView.fxml"));
+            startup.initModality(Modality.APPLICATION_MODAL);
+            FXMLLoader ldr = new FXMLLoader(getClass().getResource("AloitusDialogi.fxml"));
             final Pane root = ldr.load();
             final StartDialogController startCtrl = (StartDialogController)ldr.getController();
             
             startCtrl.setIsanta(this);
             
-            
-            
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("miinaharava.css").toExternalForm());
             startup.setScene(scene);
-            startup.setTitle("Miinaharava");
-            startup.show();
+            startup.setTitle("Startup");
+            startup.showAndWait();
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -80,5 +66,14 @@ public class MiinaharavaMain extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    
+    /**
+     * Sets the starting settings given in the startup dialog
+     * @param values Given starting values
+     */
+    public void setValues(int[] values) {
+        this.settings = values;
     }
 }

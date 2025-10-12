@@ -1,6 +1,5 @@
 package MiinaharavaFXML;
 
-import java.util.ArrayList;
 
 import Miinaharava.Minesweep;
 import javafx.collections.ObservableList;
@@ -38,17 +37,17 @@ public class MiinaharavaGUIController {
      * @param settings Arraylist amounts of rows, columns and mines
      * @param stage Ikkuna tms ???
      */
-    public void alustus(ArrayList<Integer> settings, Stage stage) {
+    public void alustus(int[] settings, Stage stage) {
 
         this.gridisolut = gridi.getChildren();
         
         // peli pitäis alustaa vasta ensimmäisen klikkauksen jälkeen, ettei heti kuole
-        this.maingame = new Minesweep(settings.get(1), settings.get(0));
+        this.maingame = new Minesweep(settings[1], settings[0]);
         
         int y = this.maingame.getY();
         int x = this.maingame.getX();
         
-        this.solut = new Solut(y, x, this.maingame, settings.get(2));
+        this.solut = new Solut(y, x, this.maingame, settings[2]);
         this.solut.alustus(this.maingame.getTaulukko());
         
         for (int i = 0; i < y; i++) {

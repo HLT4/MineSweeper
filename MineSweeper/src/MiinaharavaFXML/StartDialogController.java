@@ -1,6 +1,6 @@
 package MiinaharavaFXML;
 
-import javafx.event.ActionEvent;
+import fi.jyu.mit.fxgui.ModalController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -23,12 +23,15 @@ public class StartDialogController {
     @FXML
     private TextField rows;
 
-    int[] results = { 9, 9, 15};
+    int[] results = { 9, 9, 15 };
 
     private MiinaharavaMain isanta;
     
+    
+    
     @FXML
-    void handleOK(ActionEvent event) {
+    void handleOK() {
+        
         try {
             int r = Integer.parseInt(rows.getText());
             int c = Integer.parseInt(columns.getText());
@@ -46,6 +49,10 @@ public class StartDialogController {
             alert.showAndWait();
             return;
         }
+        
+        this.isanta.setValues(this.results);
+        ModalController.closeStage(columns);
+        
     }
 
     

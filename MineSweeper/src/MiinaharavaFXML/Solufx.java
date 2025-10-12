@@ -146,6 +146,10 @@ public class Solufx extends Pane {
         
         if (this.onPommi()) teksti.setText("💣");
         
+        teksti.setStyle("{-fx-color: black;\r\n"
+                + "    -fx-font-size: 20px;\r\n"
+                + "    -fx-font-weight: bold;}");
+        
         this.getChildren().add(teksti);
         this.setVari(this.pelisolu.getPommi() ? "red" : "white");
     }
