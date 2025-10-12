@@ -1,13 +1,18 @@
 package MiinaharavaFXML;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import Miinaharava.Minesweep;
 import Miinaharava.Minesweep.Solu;
+import fi.jyu.mit.fxgui.ModalController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
 
 /**
  * Container-luokka solufx:ille
@@ -21,7 +26,7 @@ public class Solut {
     private int minesLeft;
     private int y;
     private int x;
-    
+    private Stage mainStage;
     private Solufx[][] taulukko;
     private ArrayList<Solufx> nollalista = new ArrayList<Solufx>();
     
@@ -32,8 +37,9 @@ public class Solut {
      * @param game Game object
      * @param pommimaara Amount of mines
      * @param mineLabel Label that shows amount of mines left
+     * @param mainStage primary stage
      */
-    public Solut(int y, int x, Minesweep game, int pommimaara, Label mineLabel) {
+    public Solut(int y, int x, Minesweep game, int pommimaara, Label mineLabel, Stage mainStage) {
         this.y = y;
         this.x = x;
         this.taulukko = new Solufx[y][x];
@@ -42,6 +48,7 @@ public class Solut {
         this.minesLeft = pommimaara;
         this.mineLabel = mineLabel;
         this.mineLabel.setText("💣: " + pommimaara);
+        this.mainStage = mainStage;
     }
     
     
@@ -111,24 +118,37 @@ public class Solut {
     
     /**
      * Checks if game has been won
-     * @return true if game has been won
      */
-    public boolean checkVictory() {
+    public void checkVictory() {
         for (int i = 0; i < this.y; i++) {
             for (int j = 0; j < this.x; j++) {
                 Solufx cell = this.taulukko[i][j];
-                if (cell.onPommi() && !cell.onLiputettu()) return false;
-                if (!cell.onPommi() && !cell.onAvattu()) return false;
+                if (cell.onPommi() && !cell.onLiputettu()) return;
+                if (!cell.onPommi() && !cell.onAvattu()) return;
                 
             }
         }
         System.out.println("Voitit!");
-        Alert alert = new Alert(AlertType.INFORMATION);
+        
+        Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("You won!");
         alert.setHeaderText(null);
-        alert.setContentText("Congratulations!");
-        alert.showAndWait();    
-        return true;
+        alert.setContentText("Congratulations!\nDo you want  to play again?");
+
+        ButtonType buttonTypeYes = new ButtonType("Yes", ButtonData.OK_DONE);
+        ButtonType buttonTypeCancel = new ButtonType("No", ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if ( result.get() == buttonTypeYes ) {
+            ModalController.closeStage(this.taulukko[0][0]);
+            MiinaharavaMain miinaharavaMain = new MiinaharavaMain();
+            miinaharavaMain.start(this.mainStage);
+        }
+        else {
+            ModalController.closeStage(this.taulukko[0][0]);
+        }
         
     }
 
@@ -161,6 +181,27 @@ public class Solut {
                 if (pommi.onPommi()) pommi.avaa(); 
             }
         }
+        
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("You lost...");
+        alert.setHeaderText(null);
+        alert.setContentText("Too bad\nDo you want  to play again?");
+
+        ButtonType buttonTypeYes = new ButtonType("Yes", ButtonData.OK_DONE);
+        ButtonType buttonTypeCancel = new ButtonType("No", ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if ( result.get() == buttonTypeYes ) {
+            ModalController.closeStage(this.taulukko[0][0]);
+            MiinaharavaMain miinaharavaMain = new MiinaharavaMain();
+            miinaharavaMain.start(this.mainStage);
+        }
+        else {
+            ModalController.closeStage(this.taulukko[0][0]);
+        }
+        
     }
     
     
