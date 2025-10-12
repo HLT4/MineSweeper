@@ -1,6 +1,6 @@
 package MiinaharavaFXML;
 
-import MiinaharavaFXML.Minesweep.Solu;
+import Miinaharava.Minesweep.Solu;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;

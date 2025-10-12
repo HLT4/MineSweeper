@@ -2,7 +2,7 @@ package MiinaharavaFXML;
 
 import java.util.ArrayList;
 
-import MiinaharavaFXML.Minesweep.Solu;
+import Miinaharava.Minesweep.Solu;
 import javafx.scene.input.MouseButton;
 
 /**

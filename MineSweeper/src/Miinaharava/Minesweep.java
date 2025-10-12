@@ -1,4 +1,4 @@
-package MiinaharavaFXML;
+package Miinaharava;
 
 import java.io.PrintStream;
 import java.util.Random;
@@ -8,7 +8,13 @@ import java.util.Random;
  */
 public class Minesweep {
 
-    static class Solu {
+    /**
+     * Yksittäinen miinaharavan solu
+     * @author Hannes Tornberg
+     * @version 12.10.2025
+     *
+     */
+    public static class Solu {
         private int monta;
         private boolean onPommi;
         
@@ -118,6 +124,13 @@ public class Minesweep {
         return this.taulukko;
     }
     
+    
+    /*
+     * Initializes a game with all cells set to 0
+     */
+    public void alustaTyhja() {
+        return;
+    }
     
     /**
      * Alustaa pelin solut ja sijoittaa pommit paikoilleen
