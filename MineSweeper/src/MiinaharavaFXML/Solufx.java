@@ -108,11 +108,15 @@ public class Solufx extends Pane {
         
         if (this.flagged) {
             this.flagged = false;
-            this.setVari("grey");
+            this.getChildren().clear();;
         }
         else {
             this.flagged = true;
-            this.setVari("blue");
+            Label lippu = new Label("🚩");
+            lippu.setStyle("-fx-text-fill: red;");
+            lippu.setAlignment(Pos.BASELINE_CENTER);
+            lippu.setPrefSize(40, 40);
+            this.getChildren().add(lippu);
         }
         
         
@@ -145,10 +149,6 @@ public class Solufx extends Pane {
         teksti.setPrefSize(40, 40);
         
         if (this.onPommi()) teksti.setText("💣");
-        
-        teksti.setStyle("{-fx-color: black;\r\n"
-                + "    -fx-font-size: 20px;\r\n"
-                + "    -fx-font-weight: bold;}");
         
         this.getChildren().add(teksti);
         this.setVari(this.pelisolu.getPommi() ? "red" : "white");

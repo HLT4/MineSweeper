@@ -48,10 +48,11 @@ public class MiinaharavaMain extends Application {
             final Pane root = ldr.load();
             final StartDialogController startCtrl = (StartDialogController)ldr.getController();
             
+            startCtrl.init();
             startCtrl.setIsanta(this);
             
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("miinaharava.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("aloitus.css").toExternalForm());
             startup.setScene(scene);
             startup.setTitle("Startup");
             startup.showAndWait();

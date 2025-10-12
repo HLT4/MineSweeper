@@ -24,6 +24,9 @@
          <rowConstraints>
             <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
          </rowConstraints>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
          
       </GridPane>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -31,7 +34,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
          </VBox.margin>
          <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="35.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
          </padding>
          <children>
             <Label fx:id="mineLabel" text="💣:0">

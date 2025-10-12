@@ -64,8 +64,8 @@ public class MiinaharavaGUIController {
         
         maingame.tulostaTaul();
         
-        int lev = x * 42 - 2;
-        int kor = y * 42 + 96;
+        int lev = x * 42 + 18;
+        int kor = y * 42 + 116;
         
         stage.setMaxHeight(kor);
         stage.setMaxWidth(lev);

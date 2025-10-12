@@ -1,6 +1,7 @@
 package MiinaharavaFXML;
 
 import fi.jyu.mit.fxgui.ModalController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -62,6 +63,19 @@ public class StartDialogController {
      */
     public void setIsanta(MiinaharavaMain isanta) {
         this.isanta = isanta;
+    }
+
+
+    /**
+     * initializes the default values for textfields
+     */
+    public void init() {
+        
+        Platform.runLater(() -> rows.requestFocus());
+        
+        this.columns.setText("9");
+        this.rows.setText("9");
+        this.mines.setText("15");
     }
 
 }
