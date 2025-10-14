@@ -2,6 +2,8 @@ package MiinaharavaFXML;
 
 import javax.naming.directory.InvalidAttributesException;
 
+import Miinaharava.BadInputException;
+import Miinaharava.TooManyMinesException;
 import fi.jyu.mit.fxgui.ModalController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -47,27 +49,28 @@ public class StartDialogController {
             this.results[2] = m;
             
             if (results[0] <= 3 || results[1] <= 3 || results[2] < 0) {
-                throw new InvalidAttributesException(); // Should make a new exception class but lazy
+                throw new BadInputException("Input for rows and columns should be a whole number greater than three"
+                        + " and greater than zero for mines");
             }
             
-            if (results[2] >= results[0] * results[1]) {
-                throw new IndexOutOfBoundsException(); // Should make a new exception class but lazy
+            if (results[2] + 9 >= results[0] * results[1]) {
+                throw new TooManyMinesException("Too many mines");
             }
             
-        } catch (InvalidAttributesException e) {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Bad input");
-            alert.setHeaderText(null);
-            alert.setContentText("Input for rows and columns should be a whole number greater than three"
-                    + " and greater than zero for mines");
-            alert.showAndWait();
+            if (results[1] > 23 ||  results[0] > 45) {
+                throw new BadInputException("Maximum rows is 45 and maximum columns is 23");
+            }
+            
+            
+        } catch (NumberFormatException n) {
+            alertti("Bad input", "Input for rows and columns should be a whole number greater than three"
+                    +" and greater than zero for mines");
             return;
-        } catch (IndexOutOfBoundsException e) {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Bad input");
-            alert.setHeaderText(null);
-            alert.setContentText("Amount of mines cannot exceed or equal total cells");
-            alert.showAndWait();
+        } catch (BadInputException e) {
+            alertti("Bad input", e.getMessage());
+            return;
+        } catch (TooManyMinesException e) {
+            alertti("Too many mines", "Amount of mines cannot exceed or equal total cells");
             return;
         }
         
@@ -92,6 +95,14 @@ public class StartDialogController {
         
     }
 
+    
+    private void alertti(String title, String msg) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
 
 
     /**

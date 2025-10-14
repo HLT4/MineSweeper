@@ -175,6 +175,7 @@ public class Minesweep {
     
     /**
      * Alustaa pelin solut ja sijoittaa pommit paikoilleen
+     * Old and useless
      */
     private void alustaPeli() {
         Random rand = new Random();
@@ -226,8 +227,12 @@ public class Minesweep {
         Random rand = new Random();
         
         this.pommimaara = mines;
+        int laskuri = 0;
         
-        for (int i = 0; i < this.pommimaara; i++) {
+        for (int i = 0; i < this.pommimaara; i++, laskuri++) {
+            
+            if (laskuri >= 1035) return; // max game size 23*45. Without this, inf loop when mines exceed x*y - 9
+            
             int y = rand.nextInt(this.Yaks);
             int x = rand.nextInt(this.Xaks);
             
