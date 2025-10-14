@@ -100,6 +100,7 @@ public class Solut {
             this.game.alusta(klikattu.getY(), klikattu.getX(), this.pommimaara);
             this.firstClick = false;
             this.updateCells();
+            this.mineLabel.setText("💣: " + this.game.getPommit());
             this.handleClick(klikattu);
             return;
         }

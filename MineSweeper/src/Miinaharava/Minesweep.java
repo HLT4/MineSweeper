@@ -229,6 +229,8 @@ public class Minesweep {
         this.pommimaara = mines;
         int laskuri = 0;
         
+        boolean stupid = yy * xx <= mines - 9; 
+        
         for (int i = 0; i < this.pommimaara; i++, laskuri++) {
             
             if (laskuri >= 1035) return; // max game size 23*45. Without this, inf loop when mines exceed x*y - 9
@@ -241,12 +243,22 @@ public class Minesweep {
                 continue;
             }
             
-            if (y == yy || y == yy - 1 || y == yy + 1) {
-                if (x == xx || x == xx - 1 || x == xx + 1) {
+            if (stupid) {
+                if (y == yy && x == xx) {
                     i--;
                     continue;
                 }
             }
+            else {
+                if (y == yy || y == yy - 1 || y == yy + 1) {
+                    if (x == xx || x == xx - 1 || x == xx + 1) {
+                        i--;
+                        continue;
+                    }
+                }
+            }
+            
+            
             
             
             this.taulukko[y][x].setPommi();

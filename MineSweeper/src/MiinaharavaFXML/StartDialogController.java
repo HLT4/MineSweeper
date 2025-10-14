@@ -1,7 +1,5 @@
 package MiinaharavaFXML;
 
-import javax.naming.directory.InvalidAttributesException;
-
 import Miinaharava.BadInputException;
 import Miinaharava.TooManyMinesException;
 import fi.jyu.mit.fxgui.ModalController;
@@ -53,7 +51,7 @@ public class StartDialogController {
                         + " and greater than zero for mines");
             }
             
-            if (results[2] + 9 >= results[0] * results[1]) {
+            if (results[2] >= results[0] * results[1]) {
                 throw new TooManyMinesException("Too many mines");
             }
             
