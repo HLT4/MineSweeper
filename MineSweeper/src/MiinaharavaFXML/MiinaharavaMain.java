@@ -15,8 +15,10 @@ import javafx.fxml.FXMLLoader;
  */
 public class MiinaharavaMain extends Application {
     
+    private int[] settings = { 9, 9, 15 }; 
+    
     @Override
-    public void start(Stage primaryStage) {
+    public void start (Stage primaryStage) {
        
         try {
             
@@ -31,7 +33,7 @@ public class MiinaharavaMain extends Application {
             primaryStage.setMinHeight(200);
             primaryStage.setMinWidth(200);
             
-            startCtrl.init();
+            startCtrl.init(settings);
             
             Scene sscene = new Scene(sroot);
             sscene.getStylesheets().add(getClass().getResource("aloitus.css").toExternalForm());
@@ -51,6 +53,16 @@ public class MiinaharavaMain extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    /**
+     * Starts a new game
+     * @param mainStage primary stage
+     * @param newSettings Settings for the new game
+     */
+    public void newGame(Stage mainStage, int[] newSettings) {
+        this.settings = newSettings; 
+        this.start(mainStage);
     }
 
 }

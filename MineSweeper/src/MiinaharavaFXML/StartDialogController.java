@@ -42,8 +42,8 @@ public class StartDialogController {
             int c = Integer.parseInt(columns.getText());
             int m = Integer.parseInt(mines.getText());
             
-            this.results[0] = r;
-            this.results[1] = c;
+            this.results[0] = c;
+            this.results[1] = r;
             this.results[2] = m;
             
             if (results[0] <= 3 || results[1] <= 3 || results[2] < 0) {
@@ -59,7 +59,7 @@ public class StartDialogController {
             alert.setTitle("Bad input");
             alert.setHeaderText(null);
             alert.setContentText("Input for rows and columns should be a whole number greater than three"
-                    + "and greater than zero for mines");
+                    + " and greater than zero for mines");
             alert.showAndWait();
             return;
         } catch (IndexOutOfBoundsException e) {
@@ -96,14 +96,15 @@ public class StartDialogController {
 
     /**
      * initializes the default values for textfields
+     * @param settings settings
      */
-    public void init() {
+    public void init(int[] settings) {
         
         Platform.runLater(() -> rows.requestFocus());
         
-        this.columns.setText("9");
-        this.rows.setText("9");
-        this.mines.setText("15");
+        this.columns.setText(String.valueOf(settings[0]));
+        this.rows.setText(String.valueOf(settings[1]));
+        this.mines.setText(String.valueOf(settings[2]));
     }
 
 }

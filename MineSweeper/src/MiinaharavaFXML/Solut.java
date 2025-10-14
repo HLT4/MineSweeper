@@ -144,7 +144,7 @@ public class Solut {
         if ( result.get() == buttonTypeYes ) {
             ModalController.closeStage(this.taulukko[0][0]);
             MiinaharavaMain miinaharavaMain = new MiinaharavaMain();
-            miinaharavaMain.start(this.mainStage);
+            miinaharavaMain.newGame(this.mainStage, new int[] { this.game.getX(), this.game.getY(), this.game.getPommit()} );
         }
         else {
             ModalController.closeStage(this.taulukko[0][0]);
@@ -196,7 +196,7 @@ public class Solut {
         if ( result.get() == buttonTypeYes ) {
             ModalController.closeStage(this.taulukko[0][0]);
             MiinaharavaMain miinaharavaMain = new MiinaharavaMain();
-            miinaharavaMain.start(this.mainStage);
+            miinaharavaMain.newGame(this.mainStage, new int[] { this.game.getX(), this.game.getY(), this.game.getPommit()} );
         }
         else {
             ModalController.closeStage(this.taulukko[0][0]);

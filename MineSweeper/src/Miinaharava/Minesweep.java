@@ -296,4 +296,12 @@ public class Minesweep {
         peli.tulostaTaul();
     }
 
+
+    /**
+     * @return Amount of mine in game
+     */
+    public int getPommit() {
+        return this.pommimaara;
+    }
+
 }

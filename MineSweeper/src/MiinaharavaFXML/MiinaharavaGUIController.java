@@ -33,6 +33,7 @@ public class MiinaharavaGUIController {
     
     private ObservableList<Node> gridisolut;
 
+    private int[] startSettings;
     private Solut solut;
     private Minesweep maingame;
     
@@ -41,7 +42,7 @@ public class MiinaharavaGUIController {
     void handleNew() {
         ModalController.closeStage(this.fxMenu);
         MiinaharavaMain miinaharavaMain = new MiinaharavaMain();
-        miinaharavaMain.start(this.mainStage);
+        miinaharavaMain.newGame(this.mainStage, this.startSettings);
     }
     
     /**
@@ -50,6 +51,7 @@ public class MiinaharavaGUIController {
      */
     public void alustus(int[] settings, Stage stage) {
 
+        this.startSettings = settings;
         this.gridisolut = gridi.getChildren();
         this.mainStage = stage;
         
