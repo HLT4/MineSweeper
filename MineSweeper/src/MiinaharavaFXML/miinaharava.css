@@ -2,9 +2,16 @@
 
 Solufx
 {
+	-fx-border-radius: 0.7;
 	-fx-border-style: solid;
 	-fx-border-color: black;
-	-fx-background-color: grey; 
+	-fx-background-color: #707070; 
+	-fx-effect: innershadow(three-pass-box, rgba(180,180,180,0.5), 10, 0, 3, 3);
+}
+
+GridPane 
+{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);	
 }
 
 Label
