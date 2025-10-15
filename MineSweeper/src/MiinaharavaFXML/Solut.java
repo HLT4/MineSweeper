@@ -15,7 +15,7 @@ import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 /**
- * Container-luokka solufx:ille
+ * Should've been just a container-class but turned into an everything-class
  */
 public class Solut {
 
@@ -124,12 +124,12 @@ public class Solut {
         for (int i = 0; i < this.y; i++) {
             for (int j = 0; j < this.x; j++) {
                 Solufx cell = this.taulukko[i][j];
-                if (cell.onPommi() && !cell.onLiputettu()) return;
+                //if (cell.onPommi() && !cell.onLiputettu()) return;
                 if (!cell.onPommi() && !cell.onAvattu()) return;
                 
             }
         }
-        System.out.println("Voitit!");
+        //System.out.println("Voitit!");
         
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("You won!");
@@ -186,7 +186,7 @@ public class Solut {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("You lost...");
         alert.setHeaderText(null);
-        alert.setContentText("Too bad\nDo you want  to play again?");
+        alert.setContentText("Too bad\nDo you want to play again?");
 
         ButtonType buttonTypeYes = new ButtonType("Yes", ButtonData.OK_DONE);
         ButtonType buttonTypeCancel = new ButtonType("No", ButtonData.CANCEL_CLOSE);
