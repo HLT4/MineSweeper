@@ -227,13 +227,10 @@ public class Minesweep {
         Random rand = new Random();
         
         this.pommimaara = mines;
-        int laskuri = 0;
         
         boolean stupid = yy * xx <= mines - 9; 
         
-        for (int i = 0; i < this.pommimaara; i++, laskuri++) {
-            
-            if (laskuri >= 1035) return; // max game size 23*45. Without this, inf loop when mines exceed x*y - 9
+        for (int i = 0; i < this.pommimaara; i++) {
             
             int y = rand.nextInt(this.Yaks);
             int x = rand.nextInt(this.Xaks);

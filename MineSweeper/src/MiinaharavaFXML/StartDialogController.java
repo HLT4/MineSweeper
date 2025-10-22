@@ -56,7 +56,7 @@ public class StartDialogController {
             }
             
             if (results[1] > 23 ||  results[0] > 45) {
-                throw new BadInputException("Maximum rows is 45 and maximum columns is 23");
+                throw new BadInputException("Maximum columns is 45 and maximum rows is 23");
             }
             
             
