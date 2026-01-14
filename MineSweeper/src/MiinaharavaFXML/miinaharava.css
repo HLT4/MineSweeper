@@ -9,12 +9,17 @@ Solufx
 	-fx-effect: innershadow(three-pass-box, rgba(180,180,180,0.5), 10, 0, 3, 3);
 }
 
+Solufx:hover 
+{
+	-fx-background-color: #8f8f8f;
+}
+
 GridPane 
 {
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);	
 }
 
-Label
+.peliLabel
 {
 	-fx-text-fill: black;
     -fx-font-size: 20px;

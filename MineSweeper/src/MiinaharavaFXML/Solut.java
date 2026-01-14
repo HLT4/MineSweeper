@@ -22,6 +22,7 @@ public class Solut {
     private Label mineLabel;
     private Minesweep game;
     private boolean firstClick = true;
+    private boolean godMode = false;
     private int pommimaara;
     private int minesLeft;
     private int y;
@@ -29,6 +30,7 @@ public class Solut {
     private Stage mainStage;
     private Solufx[][] taulukko;
     private ArrayList<Solufx> nollalista = new ArrayList<Solufx>();
+    private Label godModeLabel;
     
     /**
      * Konstruktori
@@ -38,8 +40,9 @@ public class Solut {
      * @param pommimaara Amount of mines
      * @param mineLabel Label that shows amount of mines left
      * @param mainStage primary stage
+     * @param godModeLabel Label that shows if godmode is on
      */
-    public Solut(int y, int x, Minesweep game, int pommimaara, Label mineLabel, Stage mainStage) {
+    public Solut(int y, int x, Minesweep game, int pommimaara, Label mineLabel, Stage mainStage, Label godModeLabel) {
         this.y = y;
         this.x = x;
         this.taulukko = new Solufx[y][x];
@@ -48,9 +51,25 @@ public class Solut {
         this.minesLeft = pommimaara;
         this.mineLabel = mineLabel;
         this.mineLabel.setText("💣: " + pommimaara);
+        this.mineLabel.getStyleClass().add("peliLabel");
         this.mainStage = mainStage;
+        this.godModeLabel = godModeLabel;
+        this.godModeLabel.getStyleClass().add("peliLabel");
     }
     
+    /**
+     * Toggles on invulnerability to mines 
+     */
+    public void toggleGodMode() {
+        if (this.godMode) {
+            this.godMode = false;
+            this.godModeLabel.setText("");
+        }
+        else {
+            this.godMode = true;
+            this.godModeLabel.setText("G");
+        }
+    }
     
     /**
      * Alustaa kaikki solut
@@ -107,7 +126,7 @@ public class Solut {
         klikattu.avaa();
         this.checkVictory();
         
-        if (klikattu.onPommi()) havio();
+        if (klikattu.onPommi() && !this.godMode) havio();
         
         if (klikattu.getMonta() == 0) {
             this.etsiNollat(klikattu, true);

@@ -103,7 +103,8 @@ public class Solufx extends Pane {
      */
     public void handleRClick() {
         
-        if (this.onAvattu()) return;
+        //                     Godmoden takia
+        if (this.onAvattu() && !this.onPommi()) return;
         
         if (this.flagged) {
             this.flagged = false;
@@ -112,13 +113,16 @@ public class Solufx extends Pane {
         }
         else {
             this.flagged = true;
+            this.getChildren().clear(); // godmoden takia
             Label lippu = new Label("🚩");
+            lippu.getStyleClass().add("peliLabel");
             lippu.setStyle("-fx-text-fill: red;");
             lippu.setAlignment(Pos.BASELINE_CENTER);
             lippu.setPrefSize(40, 40);
             this.getChildren().add(lippu);
             this.isanta.subMinesLeft();
             this.isanta.checkVictory();
+            this.setVari("#757575"); // godmoden takia
         }
         
         
@@ -141,7 +145,7 @@ public class Solufx extends Pane {
      * Avaa solun
      */
     public void avaa() {
-        this.setVari(this.pelisolu.getPommi() ? "red" : "green");
+        // this.setVari(this.pelisolu.getPommi() ? "red" : "green");
         if (this.onAvattu()) return;
         
         this.pelisolu.avaa();
@@ -149,6 +153,7 @@ public class Solufx extends Pane {
         Label teksti = new Label(this.getMonta() == 0 ? " " : String.valueOf(this.pelisolu.getMonta()));
         teksti.setAlignment(Pos.BASELINE_CENTER);
         teksti.setPrefSize(40, 40);
+        teksti.getStyleClass().add("peliLabel");
         
         if (this.onPommi()) teksti.setText("💣");
         

@@ -29,6 +29,9 @@ public class MiinaharavaGUIController {
     @FXML
     private Label mineLabel;
     
+    @FXML
+    private Label godModeLabel;
+    
     private Stage mainStage;
     
     private ObservableList<Node> gridisolut;
@@ -43,6 +46,11 @@ public class MiinaharavaGUIController {
         ModalController.closeStage(this.fxMenu);
         MiinaharavaMain miinaharavaMain = new MiinaharavaMain();
         miinaharavaMain.newGame(this.mainStage, this.startSettings);
+    }
+    
+    @FXML
+    void Godmode() {
+        this.solut.toggleGodMode();
     }
     
     /**
@@ -60,7 +68,7 @@ public class MiinaharavaGUIController {
         int y = this.maingame.getY();
         int x = this.maingame.getX();
         
-        this.solut = new Solut(y, x, this.maingame, settings[2], this.mineLabel, this.mainStage);
+        this.solut = new Solut(y, x, this.maingame, settings[2], this.mineLabel, this.mainStage, this.godModeLabel);
         this.solut.alustus(this.maingame.getTaulukko());
         
         for (int i = 0; i < y; i++) {
